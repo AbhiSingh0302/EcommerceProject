@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ProductForm = () => {
+const ProductForm = (props) => {
     const [product, setProduct] = useState({
         id: "",
         name: "",
@@ -37,7 +37,8 @@ const ProductForm = () => {
     const addProduct = (e) => {
         e.preventDefault();
         console.log(product);
-        localStorage.setItem(product.id,JSON.stringify(product))
+        localStorage.setItem(product.id,JSON.stringify(product));
+        props.onProductAdd(JSON.stringify(product))
     }
     return (
         <form onSubmit={addProduct}>
