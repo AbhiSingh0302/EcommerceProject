@@ -5,28 +5,18 @@ import ProductList from './ProductList/ProductList';
 
 function App() {
   const [products, setProducts] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+
+  let totalPrice = 0;
+  products.forEach(product => {
+    totalPrice += +product.price
+  })
 
   const onProductAddHandler = (product) => {
-    setProducts((pre) => {
-      return [...pre,product];
-    })
-
-    setTotalPrice((pre) => {
-      return Number(pre)+Number(JSON.parse(product).price);
-    })
+    setProducts((pre) => [...pre,product])
   }
 
   const onProductRemoveHandler = (id) => {
-    const item = products.find(el => JSON.parse(el).id === id);
-    console.log(JSON.parse(item).price);
-    setTotalPrice((pre) => {
-      return Number(pre)-Number(JSON.parse(item).price);
-    })
-
-    setProducts((pre) => {
-      return pre.filter(el => JSON.parse(el).id === id)
-    })
+    setProducts((pre) => pre.filter(el => +el.id !== +id))
   }
 
   return (
